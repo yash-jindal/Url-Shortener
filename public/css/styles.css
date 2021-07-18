@@ -1,0 +1,10 @@
+*{
+    margin: 10px;
+}
+.size{
+    font-size: 2rem;
+}
+.heading{
+    font-size: 4rem;
+    text-align: center;
+}
