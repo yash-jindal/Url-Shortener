@@ -106,8 +106,13 @@ app.post("/find", function(req,res){
             res.render('found', {huge: req.body.findUrl, tiny: yeah!=null?yeah.short:"Not Found"})
     })
 });
+
+let port = process.env.PORT;
+if(port == null || port == ""){
+    port = 3000;
+}
 mongoose.connection.on('open', () => {
-    app.listen(3000, function(req, res){
+    app.listen(port, function(req, res){
         console.log("server started on port 3000");
     })
 });
