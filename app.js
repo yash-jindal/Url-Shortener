@@ -24,17 +24,13 @@ short: {
 const Url = mongoose.model("Url", shortUrlSchema);
 
 var allUrls = [];
-Url.find({}, function(err, found){
-    if(found!=null)
-    for(var j = 0;j<found.length;j++){
-        allUrls.push(found[j]);
-    }
-})
 
-app.get("/", function(req,res){
+
+app.get("/", async(req,res) => {
+    allUrls = await Url.find()
     res.render('index', {shortUrl: "", data: allUrls});
 });
-app.post("/short",function(req,res){
+app.post("/short",async(req,res) => {
     var longUrl = req.body.fullUrl;
     if(longUrl.length===0){
       res.render('index', {shortUrl: "Invalid Input", data: allUrls});
@@ -54,20 +50,16 @@ app.post("/short",function(req,res){
         const newItem = new Url ({
             full: longUrl
         })
-        newItem.save();
+        await newItem.save();
         allUrls.push(newItem);
         res.render('index', {shortUrl: "http://localhost:3000/" + newItem.short, data: allUrls});
     }
   }
   });
-  app.get("/:code", function(req,res){
-    Url.findOne({short: req.params.code}, function(err, urls){
-        if(err){
-          console.log(err);
-        }else{
-            res.redirect(urls.full);
-        }
-   })
+  app.get("/:code", async(req,res) => {
+      const rec = await Url.findOne({short: req.params.code})
+if(!rec) return res.sendStatus(404)
+res.redirect(rec.full);
 });
 app.post("/delete", function(req,res){
     const value = req.body.deleteUrl;
