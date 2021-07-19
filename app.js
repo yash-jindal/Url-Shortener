@@ -45,14 +45,14 @@ app.post("/short",async(req,res) => {
         }
     }
     if(check===1){
-        res.render('index', {shortUrl: "http://localhost:3000/" + allUrls[index].short, data: allUrls});
+        res.render('index', {shortUrl: "https://secure-bayou-95326.herokuapp.com/" + allUrls[index].short, data: allUrls});
     }else{
         const newItem = new Url ({
             full: longUrl
         })
         await newItem.save();
         allUrls.push(newItem);
-        res.render('index', {shortUrl: "http://localhost:3000/" + newItem.short, data: allUrls});
+        res.render('index', {shortUrl: "https://secure-bayou-95326.herokuapp.com/" + newItem.short, data: allUrls});
     }
   }
   });

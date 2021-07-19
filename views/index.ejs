@@ -46,7 +46,7 @@
               <tr>
                 <th scope="row"><%= i+1 %> </th>
                 <td><a href="<%= data[i].full %>"><%= data[i].full %></a></td>
-                <td><a href="http://localhost:3000/<%= data[i].short %>">http://localhost:3000/<%= data[i].short %></a></td>
+                <td><a href="https://secure-bayou-95326.herokuapp.com/<%= data[i].short %>">https://secure-bayou-95326.herokuapp.com/<%= data[i].short %></a></td>
                 <td><form action="/delete" method="POST">
                   <input type="hidden" name="deleteUrl" value="<%= data[i].short %>"></input>
                   <button type="submit" class="btn btn-warning">Delete</button>
