@@ -1,65 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/styles.css">
-    <title>URL Shortener</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+  
+  <title>UrlShortner</title>
+
+  
+  <style>
+    .attribution { font-size: 11px; text-align: center;padding-bottom: 20px; }
+    .attribution a { color: hsl(228, 45%, 44%); }
+  </style>
 </head>
 <body>
-  <h1 class="heading">Welcome to the URL Shortener Service</h1>
-  <br>
+
+  <section class="illustration">
+    <div class="illustration-grid">
+      <div class="more">
+        <h1  data-aos="fade-right">Welcome to the URL Shortener Service</h1>
+      
+      </div>
+      <div class="illustration-img" data-aos="fade-left" data-aos-delay="100">
+        <img src="illustration-working.svg" alt="" class="intro-img">
+      </div>
+    </div>
+  </section>
+
+  <div class="grey">
+    
+      <form action="/short" method="POST">
+        <div class="link-box">
+                <input type="hidden" name="fullUrl" id="shortenlink" placeholder="Shorten a link here..."aria-labelledby="please shortenlink text">
+              <button type="submit" class="shorten"></button>
+        </div>
+      </form>
+      <h1>Enter Long URL</h1>
     <form action="/short" method="POST">
-        <div class="form-group">
-            <h1>Enter Your Long URL</h1>
-            <input type="text" class="form-control inp" name="fullUrl" id="exampleFormControlInput1" placeholder="Long URL">
-            <br>
-            <button type="submit" class="btn btn-warning">Get Short URL</button>
-          </div> 
+      <div class="link-box">
+        <!-- <div class="container"> -->
+          <div class="input" data-aos="fade-up">
+            <div class="input-text">
+              <label for='text'></label>
+              <input type="text" name="fullUrl" id="shortenlink" placeholder="Shorten a link here..."aria-labelledby="please shortenlink text">
+              <p id='please'>Please add a link</p>
+            </div>
+            <button type="submit" class="shorten"> Shorten It!</button>
+          </div>
+        <!-- </div> -->
+      </div>
     </form>
-    <% if(shortUrl === "Invalid Input"){ %>
-      <span class="size"><%= shortUrl %></span>
-    <% }else{ %>
-      <a class="size" href="<%= shortUrl %>"><%= shortUrl %></a>
-   <% } %>
-    <form action="/find" method="POST">
-      <h1>Find URL</h1>
-      <input type="text" class="form-control inp" name="findUrl" id="exampleFormControlInput1" placeholder="Original Long URL">
-      <br>
-            <button type="submit" class="btn btn-warning">Find</button>
-    </form>
+    
+    <div class="link-box">
+      <% if(shortUrl === "Invalid Input"){ %>
+        <div class="url"><span><%= shortUrl %></span></div>
+      <% }else{ %>
+        <div class="url">
+          <span>Short URL: -</span>
+          <a href="<%= shortUrl %>"><%= shortUrl %></a>
+        </div>
+        
+     <% } %>
+    </div>
     <br>
+    <br>
+   <br>
+   <br>
+   <h1>Find URL</h1>
+  <form action="/find" method="POST">
+    <div class="link-box">
+      <!-- <div class="container"> -->
+        <div class="input" data-aos="fade-up">
+          <div class="input-text">
+            <label for='text'></label>
+            <input type="text" name="findUrl" id="shortenlink" placeholder="Original Long URL"aria-labelledby="please shortenlink text">
+            <p id='please'>Please add a link</p>
+          </div>
+          <button type="submit" class="shorten"> Find</button>
+        </div>
+      <!-- </div> -->
+    </div>
+  </form>
+   
     <h1>Your Shortened URLs</h1>
-        <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">S.no.</th>
-                <th scope="col">Long URL</th>
-                <th scope="col">Short URL</th>
-                <th scope="col">Operation</th>
-              </tr>
-            </thead>
-            <tbody>
-                <% for(var i=0;i<data.length;i++){ %>
-              <tr>
-                <th scope="row"><%= i+1 %> </th>
-                <td><a href="<%= data[i].full %>"><%= data[i].full %></a></td>
-                <td><a href="https://secure-bayou-95326.herokuapp.com/<%= data[i].short %>">https://secure-bayou-95326.herokuapp.com/<%= data[i].short %></a></td>
-                <td><form action="/delete" method="POST">
-                  <input type="hidden" name="deleteUrl" value="<%= data[i].short %>"></input>
-                  <button type="submit" class="btn btn-warning">Delete</button>
-                </form>
-                <form action="/update" method="POST">
-                  <input type="hidden" name="updateUrl" value="<%= data[i].full %>"></input>
-                  <input type="hidden" name="shortUrl" value="<%= data[i].short %>"></input>
-                  <button type="submit" class="btn btn-warning">Update</button>
-                </form>
-              </td>
-              </tr>
-   <% } %>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">S.no.</th>
+            <th scope="col">Long URL</th>
+            <th scope="col">Short URL</th>
+            <th scope="col">Operation</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% for(var i=0;i<data.length;i++){ %>
+          <tr>
+            <th scope="row"><%= i+1 %> </th>
+            <td><a href="<%= data[i].full %>"><%= data[i].full %></a></td>
+            <td><a href="https://secure-bayou-95326.herokuapp.com/<%= data[i].short %>">https://secure-bayou-95326.herokuapp.com/<%= data[i].short %></a></td>
+            <td><form action="/delete" method="POST">
+              <input type="hidden" name="deleteUrl" value="<%= data[i].short %>"></input>
+              <button type="submit" class="btn btn-warning">Delete</button>
+            </form>
+            <form action="/update" method="POST">
+              <input type="hidden" name="updateUrl" value="<%= data[i].full %>"></input>
+              <input type="hidden" name="shortUrl" value="<%= data[i].short %>"></input>
+              <button type="submit" class="btn btn-warning">Update</button>
+            </form>
+          </td>
+          </tr>
+<% } %>
 </tbody>
 </table>
+  </div>
+    
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800
+    });
+  </script>
+
+  <script src="css/url.js"></script>
 </body>
 </html>
