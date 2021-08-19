@@ -22,6 +22,10 @@ html {
 body {
   overflow: hidden;
 }
+table{
+  width: 100%;
+  position: relative;
+}
 ul, li {
   list-style: none;
 }
@@ -90,7 +94,7 @@ header {
   letter-spacing: 1px;
 }
 
-/* GREY */
+
 .grey {
   background: var(--gray);
   background:  hsl(0, 5%, 92%);
@@ -151,6 +155,9 @@ input[type="text"] {
   .illustration-img img {
     width: 100%;
   }
+  table{
+    width: 90%;
+  }
 }
 
 @media(max-width:1250px) {
@@ -159,6 +166,9 @@ input[type="text"] {
   }
   .more h1 {
     line-height: 75px;
+  }
+  table{
+    width: 80%;
   }
 }
 
@@ -183,6 +193,9 @@ input[type="text"] {
   }
   .input button {
     width: 20%;
+  }
+  table{
+    width: 70%;
   }
 }
 
@@ -218,6 +231,9 @@ input[type="text"] {
     width: 80%;
     margin: auto;
   }
+  table{
+    width: 60%;
+  }
 }
 
 @media(max-width: 805px){
@@ -246,6 +262,9 @@ input[type="text"] {
   .input-text p {
     padding: 4px 0;
   }
+  table{
+    width: 50%;
+  }
 }
 
 @media(max-width:700px){
@@ -263,8 +282,13 @@ input[type="text"] {
   .illustration-img img {
     left: 50px;
   }
+  table{
+    width: 40%;
+  }
 }
 .url{
   text-align: center;
   font-size: 1.5rem;
 }
+
+
